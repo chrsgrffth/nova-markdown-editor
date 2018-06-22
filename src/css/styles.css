@@ -1,0 +1,10 @@
+body,
+html {
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'SF Mono', 'Monaco', monospace;
+}
+
+body {
+  margin: 10rem;
+}
