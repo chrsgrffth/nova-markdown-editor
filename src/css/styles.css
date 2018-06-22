@@ -7,3 +7,8 @@ html {
 body {
   margin: 10rem;
 }
+
+pre {
+  background: #f7f7f7;
+  padding: 1rem;
+}

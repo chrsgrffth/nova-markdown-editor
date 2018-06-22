@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Value } from 'slate';
+import AutoReplace from 'slate-auto-replace';
 import { Editor } from 'slate-react';
 
 const initialValue = Value.fromJSON({
@@ -26,8 +27,45 @@ const initialValue = Value.fromJSON({
 interface Props {}
 
 interface State {
-  value: any; // tslint:disable-line no-any
+  value: any;
 }
+
+const plugins: any = [
+  AutoReplace({
+    trigger: 'space',
+    before: /^(#{1,6})$/,
+    transform: (transform: any, {}, matches: any) => {
+      const [hashes] = matches.before;
+      const level = hashes.length;
+      return transform.setBlocks({
+        type: 'h',
+        data: { level },
+      });
+    },
+  }),
+
+  AutoReplace({
+    trigger: 'space',
+    before: /^(>)$/,
+    transform: (transform: any) => transform.setBlocks('p').wrapBlock('blockquote'),
+  }),
+
+  AutoReplace({
+    trigger: 'space',
+    before: /^(\*)$/,
+    transform: (transform: any) => transform.setBlocks('li').wrapBlock('ul'),
+  }),
+
+  AutoReplace({
+    trigger: 'enter',
+    before: /^(\`{3})/,
+    transform: (transform: any) => transform.setBlocks('span').wrapBlock('codeBlock'),
+  }),
+
+  // https://github.com/ianstormtaylor/slate-plugins/blob/master/examples/slate-auto-replace/index.js
+  // https://yarnpkg.com/en/package/slate-auto-replace
+  // https://ianstormtaylor.github.io/slate-plugins/#/slate-auto-replace
+];
 
 class MarkdownEditorComponent extends React.Component<Props, State> {
 
@@ -40,15 +78,36 @@ class MarkdownEditorComponent extends React.Component<Props, State> {
   }
 
   public render() {
+
     return (
       <Editor
         value={this.state.value}
         onChange={this.onChange}
+        plugins={plugins}
+        renderNode={this.renderNode}
       />
     );
   }
 
-  // tslint:disable-next-line no-any
+  private renderNode = (props: any) => {
+    const { node, attributes, children } = props;
+
+    switch (node.type) {
+      case 'blockquote':
+        return <blockquote {...attributes}><p>{children}</p></blockquote>;
+      case 'li':
+        return <li {...attributes}>{children}</li>;
+      case 'codeBlock':
+        return <pre {...attributes}><code>{children}</code></pre>;
+      case 'h':
+        const level = node.data.get('level');
+        const Tag = `h${level}`;
+        return <Tag {...attributes}>{children}</Tag>;
+      default:
+        return;
+    }
+  }
+
   private onChange = ({ value }: any) => {
     this.setState({ value });
   }

@@ -1870,6 +1870,10 @@ is-glob@^4.0.0:
   dependencies:
     is-extglob "^2.1.1"
 
+is-hotkey@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/is-hotkey/-/is-hotkey-0.0.3.tgz#3713fea135f86528c87cf39810b3934e45151390"
+
 is-hotkey@^0.1.1:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/is-hotkey/-/is-hotkey-0.1.2.tgz#aeda5e4f542284700ae18b46980fb0637c021198"
@@ -3318,6 +3322,13 @@ shebang-regex@^1.0.0:
 signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
+
+slate-auto-replace@^0.9.1:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/slate-auto-replace/-/slate-auto-replace-0.9.1.tgz#31080199df3eb02191952b9a28a2a09fe3798425"
+  dependencies:
+    is-hotkey "^0.0.3"
+    type-of "^2.0.1"
 
 slate-base64-serializer@^0.2.35:
   version "0.2.35"

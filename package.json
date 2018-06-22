@@ -16,6 +16,7 @@
     "immutable": "^3.8.2",
     "postcss-loader": "^2.1.5",
     "slate": "^0.34.1",
+    "slate-auto-replace": "^0.9.1",
     "slate-react": "^0.12.10",
     "style-loader": "^0.21.0",
     "tslint": "^5.10.0",
