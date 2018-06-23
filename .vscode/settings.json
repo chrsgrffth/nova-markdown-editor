@@ -9,4 +9,5 @@
   },
   "javascript.validate.enable": false,
   "tslint.autoFixOnSave": true,
+  "stylelint.enable": true,
 }

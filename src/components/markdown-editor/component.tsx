@@ -103,12 +103,12 @@ class MarkdownEditorComponent extends React.Component<Props, State> {
     }
   }
 
-  private onEnter = (e: React.KeyboardEvent<HTMLDivElement>, change: any) => {
+  private onEnter = ({}, change: any) => {
     change.splitBlock().setBlocks('paragraph');
     return true;
   }
 
-  private onBackspace = (e: React.KeyboardEvent<HTMLDivElement>, change: any) => {
+  private onBackspace = ({}, change: any) => {
     if (change.value.startOffset !== 0) {
       return;
     }

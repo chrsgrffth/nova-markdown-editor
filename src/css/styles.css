@@ -1,7 +1,7 @@
 body,
 html {
-  font-size: 14px;
   font-family: 'SF Mono', 'Monaco', monospace;
+  font-size: 14px;
 }
 
 body {
@@ -9,8 +9,8 @@ body {
 }
 
 pre {
-  background: #f7f7f7;
   padding: 1rem;
+  background: #f7f7f7;
 }
 
 h1 {
@@ -21,8 +21,8 @@ h1::before {
   content: '#';
   display: block;
   position: absolute;
-  left: -2rem;
   top: 0;
+  left: -2rem;
   font-size: 1rem;
   font-weight: 500;
 }
