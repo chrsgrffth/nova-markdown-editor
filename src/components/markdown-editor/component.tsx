@@ -47,7 +47,7 @@ const plugins: any = [
   AutoReplace({
     trigger: 'space',
     before: /^(>)$/,
-    transform: (transform: any) => transform.setBlocks('p').wrapBlock('blockquote'),
+    transform: (transform: any) => transform.setBlocks('span').wrapBlock('blockquote'),
   }),
 
   AutoReplace({
@@ -104,13 +104,49 @@ class MarkdownEditorComponent extends React.Component<Props, State> {
   }
 
   private onEnter = ({}, change: any) => {
-    change.splitBlock().setBlocks('paragraph');
-    return true;
+    const { value } = change;
+    const { startBlock } = value;
+
+    if (startBlock.type === 'h') {
+      if (startBlock.isEmpty) {
+        change.unwrapBlock('h').setBlocks('paragraph');
+      } else {
+        change.splitBlock().setBlocks('paragraph');
+      }
+    }
+
+    if (startBlock.type === 'li') {
+      if (startBlock.isEmpty) {
+        change.unwrapBlock('ul').setBlocks('paragraph');
+      } else {
+        return;
+      }
+    }
+
+    if (startBlock.type === 'span') {
+      if (startBlock.isEmpty) {
+        change.unwrapBlock('codeBlock').setBlocks('paragraph');
+      } else {
+        return;
+      }
+    }
   }
 
   private onBackspace = ({}, change: any) => {
-    if (change.value.startOffset !== 0) {
+    const { value } = change;
+    const { startBlock } = value;
+
+    // Don't change types until the start of the line.
+    if (value.startOffset !== 0) {
       return;
+    }
+
+    if (startBlock.type === 'paragraph') {
+      return;
+    }
+
+    if (startBlock.type === 'li') {
+      change.unwrapBlock('ul');
     }
 
     change.setBlocks('paragraph');
@@ -121,9 +157,13 @@ class MarkdownEditorComponent extends React.Component<Props, State> {
     const { node, attributes, children } = props;
 
     switch (node.type) {
+      case 'paragraph':
+        return <p {...attributes}>{children}</p>;
       case 'blockquote':
-        return <blockquote {...attributes}><p>{children}</p></blockquote>;
-      case 'li':
+        return <blockquote {...attributes}>{children}</blockquote>;
+      case 'ul':
+        return <ul {...attributes}>{children}</ul>;
+        case 'li':
         return <li {...attributes}>{children}</li>;
       case 'codeBlock':
         return <pre {...attributes}><code>{children}</code></pre>;

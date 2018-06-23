@@ -1,8 +1,12 @@
 module.exports = {
   extends: 'stylelint-config-property-sort-order-smacss',
   rules: {
-
     'block-no-empty': true,
+    'block-closing-brace-empty-line-before': 'never',
+    'block-closing-brace-newline-after': 'always',
+    'block-closing-brace-newline-before': 'always',
+    'color-hex-case': 'lower',
+    'comment-no-empty': true,
 
     // "at-rule-blacklist": string|[],
     // "at-rule-empty-line-before": "always"|"never",
@@ -19,6 +23,7 @@ module.exports = {
     // "block-closing-brace-newline-before": "always"|"always-multi-line"|"never-multi-line",
     // "block-closing-brace-space-after": "always"|"always-single-line"|"never-single-line"|"always-multi-line"|"never-multi-line",
     // "block-closing-brace-space-before": "always"|"never"|"always-single-line"|"never-single-line"|"always-multi-line"|"never-multi-line",
+    // "block-no-empty": true,
     // "block-opening-brace-newline-after": "always"|"always-multi-line"|"never-multi-line",
     // "block-opening-brace-newline-before": "always"|"always-single-line"|"never-single-line"|"always-multi-line"|"never-multi-line",
     // "block-opening-brace-space-after": "always"|"always-single-line"|"never-single-line"|"always-multi-line"|"never-multi-line",
@@ -173,5 +178,6 @@ module.exports = {
     // "value-list-comma-space-before": "always"|"never"|"always-single-line"|"never-single-line",
     // "value-list-max-empty-lines": int,
     // "value-no-vendor-prefix": true
+
   }
 }
