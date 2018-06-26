@@ -141,7 +141,7 @@ class MarkdownEditorComponent extends React.Component<Props, State> {
       return;
     }
 
-    if (startBlock.type === 'paragraph') {
+    if (startBlock.type === 'paragraph' || startBlock.type === 'h') {
       return;
     }
 
